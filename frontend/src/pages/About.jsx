@@ -14,10 +14,10 @@ const About = () => {
       <div className='my-10 flex flex-col md:flex-row gap-16'>
         <img className='w-full md:max-w-[450px]' src={assets.about_img} alt="" />
         <div className='flex flex-col justify-center gap-6 md:w-2/4 text-gray-600'>
-        <p>Lorem ipsum refers to placeholder text often used in publishing and graphic design to demonstrate the visual style of a document, webpage, or typeface. It is intended to serve as a sample, not to be read as meaningful sentences.</p>
-        <p>Lorem ipsum refers to placeholder text often used in publishing and graphic design to demonstrate the visual style of a document, webpage, or typeface. It is intended to serve as a sample, not to be read as meaningful sentences.</p>
+        <p>At <span className='font-bold'>SwiftCart</span>, we are committed to transforming how you shop online. Our platform empowers users with the ability to analyze and compare product prices across multiple websites, ensuring that you always find the best deals effortlessly.</p>
+        <p>By leveraging cutting-edge technology like web scraping, API integrations, and data visualization, we provide transparent and accurate insights tailored to your needs.</p>
         <b className='text-gray-800'>Our Mission</b>
-        <p>Lorem ipsum refers to placeholder text often used in publishing and graphic design to demonstrate the visual style of a document, webpage, or typeface. It is intended to serve as a sample, not to be read as meaningful sentences.</p>
+        <p>We aim to foster consumer empowerment by simplifying online shopping and promoting fair competition among retailers. Our goal is to enhance your e-commerce experience through real-time pricing insights and intelligent tools, helping you make informed purchasing decisions.</p>
         </div>
       </div>
 
@@ -28,15 +28,15 @@ const About = () => {
       <div className='flex flex-col md:flex-row text-sm mb-20'>
         <div className='border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5'>
           <b>Quality Assurance:</b>
-          <p className='text-gray-600'>Lorem ipsum refers to placeholder text often used in publishing and graphic design to demonstrate the visual style of a document, webpage, or typeface. It is intended to serve as a sample, not to be read as meaningful sentences.</p>
+          <p className='text-gray-600'>We deliver accurate and reliable price comparisons by integrating advanced technologies, ensuring that every piece of information on our platform is trustworthy and up-to-date.</p>
         </div>
         <div className='border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5'>
           <b>Convenience:</b>
-          <p className='text-gray-600'>Lorem ipsum refers to placeholder text often used in publishing and graphic design to demonstrate the visual style of a document, webpage, or typeface. It is intended to serve as a sample, not to be read as meaningful sentences.</p>
+          <p className='text-gray-600'>Save time and effort by accessing prices across various e-commerce platforms in one place. Our intuitive design ensures seamless navigation and an enjoyable user experience.</p>
         </div>
         <div className='border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5'>
           <b>Exceptional Customer Service</b>
-          <p className='text-gray-600'>Lorem ipsum refers to placeholder text often used in publishing and graphic design to demonstrate the visual style of a document, webpage, or typeface. It is intended to serve as a sample, not to be read as meaningful sentences.</p>
+          <p className='text-gray-600'>Your satisfaction is our priority. Our team is dedicated to providing prompt support and continuously improving the platform based on your feedback.</p>
         </div>
       </div>
 
