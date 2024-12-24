@@ -8,7 +8,7 @@ const Footer = () => {
             <div>
                 <img src={assets.logo} className='mb-5 w-32' alt="" />
                 <p className='w-full md:w-2/3 text-gray-600'>
-                    Bahebek ya samah
+                At SwiftCart, we are dedicated to making your online shopping smarter and simpler. Discover the best deals, compare prices, and shop with confidence.
                 </p>
             </div>
 
