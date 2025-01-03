@@ -18,9 +18,9 @@ const LatestCollection = () => {
   return (
     <div className='my-10'>
         <div className='text-center py-10 text-3xl'>
-            <Title text1={'LATEST'} text2={'COLLECTIONS'} />
+            <Title text1={'LATEST'} text2={'PRODUCTS'} />
             <p className='w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600'>
-            bahbek ya samah mahma eltalg sah 
+            Explore Our Latest and Most Exciting Products!
             </p>
         </div>
         {/*Rendeing Products */}
