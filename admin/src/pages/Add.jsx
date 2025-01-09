@@ -18,7 +18,7 @@ const Add = ({token}) => {
   const [category, setCategory] = useState("Men");
   const [subCategory, setSubCategory] = useState("Topwear")
   const [bestseller, setBestseller] = useState(false);
-  const [sizes, setSizes] = useState([]);
+  const [colors, setColors] = useState([]);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -33,7 +33,7 @@ const Add = ({token}) => {
       formData.append("category", category)
       formData.append("subCategory", subCategory)
       formData.append("bestseller", bestseller)
-      formData.append("sizes", JSON.stringify(sizes))
+      formData.append("colors", JSON.stringify(colors))
 
       image1 && formData.append("image1", image1)
       image2 && formData.append("image2", image2)
@@ -131,20 +131,20 @@ const Add = ({token}) => {
       <div>
         <p className='mb-2'>Product Colors</p>
         <div className='flex gap-3'>
-          <div onClick={() => setSizes(prev => prev.includes("White") ? prev.filter(item => item !== "White") : [...prev, "White"])}>
-            <p className={`${sizes.includes("White") ? "bg-purple-100" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>White</p>
+          <div onClick={() => setColors(prev => prev.includes("White") ? prev.filter(item => item !== "White") : [...prev, "White"])}>
+            <p className={`${colors.includes("White") ? "bg-purple-100" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>White</p>
           </div>
-          <div onClick={() => setSizes(prev => prev.includes("Black") ? prev.filter(item => item !== "Black") : [...prev, "Black"])}>
-            <p className={`${sizes.includes("Black") ? "bg-purple-100" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Black</p>
+          <div onClick={() => setColors(prev => prev.includes("Black") ? prev.filter(item => item !== "Black") : [...prev, "Black"])}>
+            <p className={`${colors.includes("Black") ? "bg-purple-100" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Black</p>
           </div>
-          <div onClick={() => setSizes(prev => prev.includes("Gold") ? prev.filter(item => item !== "Gold") : [...prev, "Gold"])}>
-            <p className={`${sizes.includes("Gold") ? "bg-purple-100" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Gold</p>
+          <div onClick={() => setColors(prev => prev.includes("Gold") ? prev.filter(item => item !== "Gold") : [...prev, "Gold"])}>
+            <p className={`${colors.includes("Gold") ? "bg-purple-100" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Gold</p>
           </div>
-          <div onClick={() => setSizes(prev => prev.includes("Blue") ? prev.filter(item => item !== "Blue") : [...prev, "Blue"])}>
-            <p className={`${sizes.includes("Blue") ? "bg-purple-100" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Blue</p>
+          <div onClick={() => setColors(prev => prev.includes("Blue") ? prev.filter(item => item !== "Blue") : [...prev, "Blue"])}>
+            <p className={`${colors.includes("Blue") ? "bg-purple-100" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Blue</p>
           </div>
-          <div onClick={() => setSizes(prev => prev.includes("Purple") ? prev.filter(item => item !== "Purple") : [...prev, "Purple"])}>
-            <p className={`${sizes.includes("Purple") ? "bg-purple-100" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Purple</p>
+          <div onClick={() => setColors(prev => prev.includes("Purple") ? prev.filter(item => item !== "Purple") : [...prev, "Purple"])}>
+            <p className={`${colors.includes("Purple") ? "bg-purple-100" : "bg-slate-200"} px-3 py-1 cursor-pointer`}>Purple</p>
           </div>
         </div>
       </div>

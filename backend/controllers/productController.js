@@ -7,7 +7,7 @@ const addProduct = async (req, res) => {
 
     try {
 
-        const { name, description, price, category, subCategory, sizes, bestseller } = req.body
+        const { name, description, price, category, subCategory, colors, bestseller } = req.body
 
         const image1 = req.files.image1 && req.files.image1[0]
         const image2 = req.files.image2 && req.files.image2[0]
@@ -29,7 +29,7 @@ const addProduct = async (req, res) => {
             price: Number(price),
             category,
             subCategory,
-            sizes: JSON.parse(sizes),
+            colors: JSON.parse(colors),
             bestseller: bestseller === "true" ? true : false,
             image: imagesUrl,
             date: Date.now()
@@ -85,7 +85,7 @@ const singleProduct = async (req, res) => {
 
         const { productId } = req.body
         const product = await productModel.findById(productId)
-        res.json({success:true , product})
+        res.json({ success: true, product })
 
     } catch (error) {
         console.log(error);
@@ -93,5 +93,25 @@ const singleProduct = async (req, res) => {
     }
 }
 
+// function for adding reviews
 
-export { listProduct, addProduct, removeProduct, singleProduct }
+const addReview = async (req, res) => {
+    try {
+        const { productId, user, rating, comment } = req.body;
+
+        const product = await productModel.findById(productId);
+        if (!product) {
+            return res.status(404).json({ success: false, message: "Product not found" });
+        }
+
+        product.reviews.push({ user, rating, comment });
+        await product.save();
+
+        res.json({ success: true, message: "Review added successfully", reviews: product.reviews });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: error.message });
+    }
+};
+
+export { listProduct, addProduct, removeProduct, singleProduct, addReview }

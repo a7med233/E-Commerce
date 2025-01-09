@@ -1,6 +1,6 @@
 import React from 'react'
 import Title from '../components/Title'
-import { assets } from '../assets/assets' 
+import { assets } from '../assets/assets'
 import NewsletterBox from '../components/NewsletterBox'
 
 const About = () => {
@@ -8,21 +8,28 @@ const About = () => {
     <div>
 
       <div className='text-2xl text-center pt-8 border-t'>
-        <Title text1={'ABOUT'} text2={'US'}/>
+        <Title text1={'ABOUT'} text2={'US'} />
       </div>
 
       <div className='my-10 flex flex-col md:flex-row gap-16'>
-        <img className='w-full md:max-w-[450px]' src={assets.about_img} alt="" />
-        <div className='flex flex-col justify-center gap-6 md:w-2/4 text-gray-600'>
-        <p>At <span className='font-bold'>SwiftCart</span>, we are committed to transforming how you shop online. Our platform empowers users with the ability to analyze and compare product prices across multiple websites, ensuring that you always find the best deals effortlessly.</p>
-        <p>By leveraging cutting-edge technology like web scraping, API integrations, and data visualization, we provide transparent and accurate insights tailored to your needs.</p>
-        <b className='text-gray-800'>Our Mission</b>
-        <p>We aim to foster consumer empowerment by simplifying online shopping and promoting fair competition among retailers. Our goal is to enhance your e-commerce experience through real-time pricing insights and intelligent tools, helping you make informed purchasing decisions.</p>
+        <div className='w-full md:w-1/2 max-w-[450px] mx-auto'>
+          <img
+            className='w-full h-auto object-cover rounded-lg shadow-md'
+            src={assets.about_img}
+            alt="About SwiftCart"
+          />
+        </div>
+        <div className='flex flex-col justify-center gap-6 md:w-1/2 text-gray-600'>
+          <p>At <span className='font-bold'>SwiftCart</span>, we are committed to transforming how you shop online. Our platform empowers users with the ability to analyze and compare product prices across multiple websites, ensuring that you always find the best deals effortlessly.</p>
+          <p>By leveraging cutting-edge technology like web scraping, API integrations, and data visualization, we provide transparent and accurate insights tailored to your needs.</p>
+          <b className='text-gray-800'>Our Mission</b>
+          <p>We aim to foster consumer empowerment by simplifying online shopping and promoting fair competition among retailers. Our goal is to enhance your e-commerce experience through real-time pricing insights and intelligent tools, helping you make informed purchasing decisions.</p>
         </div>
       </div>
 
+
       <div className='text-xl py-4'>
-        <Title text1={'WHY'} text2={'CHOOSE US'}/>
+        <Title text1={'WHY'} text2={'CHOOSE US'} />
       </div>
 
       <div className='flex flex-col md:flex-row text-sm mb-20'>
@@ -40,7 +47,7 @@ const About = () => {
         </div>
       </div>
 
-      <NewsletterBox/>
+      <NewsletterBox />
 
     </div>
   )
