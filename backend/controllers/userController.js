@@ -102,6 +102,4 @@ const adminLogin = async (req, res) => {
         res.json({ success: false, message: error.message })
     }
 }
-
-
 export { loginUser, registerUser, adminLogin }

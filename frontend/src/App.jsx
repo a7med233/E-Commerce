@@ -18,6 +18,7 @@ import ScrollToTop from './components/ScrollToTop';
 import Verify from './pages/Verify';
 import Privacy from './pages/Privacy';
 import Delivery from './pages/Delivery';
+import Profile from './pages/Profile';
 
 const App = () => {
   const location = useLocation();
@@ -43,6 +44,7 @@ const App = () => {
             <Route path="/verify" element={<Verify />} />
             <Route path="/privacy-policy" element={<Privacy />} />
             <Route path="/delivery" element={<Delivery />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </CSSTransition>
       </TransitionGroup>

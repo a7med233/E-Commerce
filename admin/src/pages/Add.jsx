@@ -15,8 +15,8 @@ const Add = ({token}) => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   //Change Here
-  const [category, setCategory] = useState("Men");
-  const [subCategory, setSubCategory] = useState("Topwear")
+  const [category, setCategory] = useState("Apple");
+  const [subCategory, setSubCategory] = useState("Laptop")
   const [bestseller, setBestseller] = useState(false);
   const [colors, setColors] = useState([]);
 
@@ -106,18 +106,18 @@ const Add = ({token}) => {
         <div>
           <p className='mb-2'>Manufacturer</p>
           <select onChange={(e) => setCategory(e.target.value)} className='w-full px-3 py-2'>
-            <option value="Men">Apple</option>
-            <option value="Women">Samsung</option>
-            <option value="Kids">Lenovo</option>
+            <option value="Apple">Apple</option>
+            <option value="Samsung">Samsung</option>
+            <option value="Lenovo">Lenovo</option>
           </select>
         </div>
 
         <div>
           <p className='mb-2'>Type</p>
           <select onChange={(e) => setSubCategory(e.target.value)} className='w-full px-3 py-2'>
-            <option value="Topwear">Laptop</option>
-            <option value="Bottomwear">Tablet</option>
-            <option value="Winterwear">Phone</option>
+            <option value="Laptop">Laptop</option>
+            <option value="Tablet">Tablet</option>
+            <option value="Phone">Phone</option>
           </select>
         </div>
 

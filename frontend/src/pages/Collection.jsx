@@ -92,13 +92,13 @@ const Collection = () => {
           <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
             {/* Change Here */}
             <p className='flex gap-2'>
-              <input className='w-3' type="checkbox" value={'Men'}  onChange={toggleCategory}/> Apple
+              <input className='w-3' type="checkbox" value={'Apple'}  onChange={toggleCategory}/> Apple
             </p>
             <p className='flex gap-2'>
-              <input className='w-3' type="checkbox" value={'Women'} onChange={toggleCategory} /> Samsung
+              <input className='w-3' type="checkbox" value={'Samsung'} onChange={toggleCategory} /> Samsung
             </p>
             <p className='flex gap-2'>
-              <input className='w-3' type="checkbox" value={'Kids'}  onChange={toggleCategory}/> Lenovo
+              <input className='w-3' type="checkbox" value={'Lenovo'}  onChange={toggleCategory}/> Lenovo
             </p>
           </div>
         </div>
@@ -108,13 +108,13 @@ const Collection = () => {
           <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
             {/* Change Here */}
             <p className='flex gap-2'>
-              <input className='w-3' type="checkbox" value={'Topwear'} onChange={toggleSubCategory} /> Laptop
+              <input className='w-3' type="checkbox" value={'Laptop'} onChange={toggleSubCategory} /> Laptop
             </p>
             <p className='flex gap-2'>
-              <input className='w-3' type="checkbox" value={'Bottomwear'} onChange={toggleSubCategory} /> Tablet
+              <input className='w-3' type="checkbox" value={'Tablet'} onChange={toggleSubCategory} /> Tablet
             </p>
             <p className='flex gap-2'>
-              <input className='w-3' type="checkbox" value={'Winterwear'} onChange={toggleSubCategory} /> Phone
+              <input className='w-3' type="checkbox" value={'Phone'} onChange={toggleSubCategory} /> Phone
             </p>
           </div>
         </div>
