@@ -114,4 +114,31 @@ const addReview = async (req, res) => {
     }
 };
 
+// Controller for handling price suggestions
+export const addSuggestion = async (req, res) => {
+    const { productId, price, link } = req.body;
+
+    if (!productId || !price || !link) {
+        return res.status(400).json({ success: false, message: "All fields are required" });
+    }
+
+    try {
+        // Use the correct model name: productModel
+        const product = await productModel.findById(productId);
+
+        if (!product) {
+            return res.status(404).json({ success: false, message: "Product not found" });
+        }
+
+        // Add suggestion to the product's suggestions array
+        product.suggestions.push({ price, link });
+        await product.save();
+
+        res.status(201).json({ success: true, suggestion: { price, link }, message: "Suggestion added successfully" });
+    } catch (error) {
+        console.error("Error adding suggestion:", error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+};
+
 export { listProduct, addProduct, removeProduct, singleProduct, addReview }

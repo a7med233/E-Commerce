@@ -1,5 +1,11 @@
 import mongoose from "mongoose";
 
+const suggestionSchema = new mongoose.Schema({
+  price: { type: Number, required: true },
+  link: { type: String, required: true },
+  submittedAt: { type: Date, default: Date.now },
+});
+
 const productSchema = new mongoose.Schema({
     name: {type: String, required:true },
     description: {type: String, required:true },
@@ -9,6 +15,7 @@ const productSchema = new mongoose.Schema({
     subCategory: {type: String, required:true },
     colors: {type: Array, required:true },
     bestseller: {type: Boolean},
+    suggestions: [suggestionSchema], // New field for suggestions
     date: {type: Number, required:true },
     reviews: [
         {
