@@ -103,4 +103,29 @@ const adminLogin = async (req, res) => {
         res.json({ success: false, message: error.message })
     }
 }
-export { loginUser, registerUser, adminLogin }
+
+// Get user Profile information
+const getUserProfile = async (req, res) => {
+    try {
+      const userId = req.body.userId; // Extracted from the token by authUser middleware
+      const user = await userModel.findById(userId);
+  
+      if (!user) {
+        return res.status(404).json({ success: false, message: "User not found" });
+      }
+  
+      res.json({
+        success: true,
+        user: {
+          name: user.name,
+          email: user.email,
+          cartData: user.cartData || {},
+        },
+      });
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+      res.status(500).json({ success: false, message: "Internal server error" });
+    }
+  };
+
+export { loginUser, registerUser, adminLogin, getUserProfile }
