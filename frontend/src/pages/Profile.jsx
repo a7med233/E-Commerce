@@ -11,8 +11,8 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get(`${backendUrl}/api/user/profile`,{headers:{token}})
-  
+        const response = await axios.get(`${backendUrl}/api/user/profile`, { headers: { token } });
+
         if (response.data.success) {
           setProfileData(response.data.user);
         } else {
@@ -21,12 +21,13 @@ const Profile = () => {
       } catch (error) {
         console.error(error);
         setError('Error: Not Authorized. Please log in again.');
+      } finally {
+        setLoading(false); // Set loading to false after fetching data
       }
     };
-  
+
     if (token) fetchProfile();
   }, [token]);
-  
 
   if (loading) {
     return <div>Loading profile...</div>;
@@ -48,3 +49,4 @@ const Profile = () => {
 };
 
 export default Profile;
+
