@@ -107,25 +107,38 @@ const adminLogin = async (req, res) => {
 // Get user Profile information
 const getUserProfile = async (req, res) => {
     try {
-      const userId = req.body.userId; // Extracted from the token by authUser middleware
-      const user = await userModel.findById(userId);
-  
-      if (!user) {
-        return res.status(404).json({ success: false, message: "User not found" });
-      }
-  
-      res.json({
-        success: true,
-        user: {
-          name: user.name,
-          email: user.email,
-          cartData: user.cartData || {},
-        },
-      });
+        const userId = req.body.userId; // Extracted from the token by authUser middleware
+        const user = await userModel.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+
+        // Transform `cartData` into an array format
+        const formattedCartData = [];
+        for (const itemId in user.cartData) {
+            const itemColors = user.cartData[itemId];
+            for (const color in itemColors) {
+                formattedCartData.push({
+                    itemId,
+                    color,
+                    quantity: itemColors[color],
+                });
+            }
+        }
+
+        res.json({
+            success: true,
+            user: {
+                name: user.name,
+                email: user.email,
+                cartData: formattedCartData,
+            },
+        });
     } catch (error) {
-      console.error("Error fetching user profile:", error);
-      res.status(500).json({ success: false, message: "Internal server error" });
+        console.error("Error fetching user profile:", error);
+        res.status(500).json({ success: false, message: "Internal server error" });
     }
-  };
+};
 
 export { loginUser, registerUser, adminLogin, getUserProfile }

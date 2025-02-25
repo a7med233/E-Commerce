@@ -62,15 +62,3 @@ button {
   background-color: #000000;
   color: #ffffff;
 }
-
-/* Dark Mode */
-body.dark-mode {
-  background-color: #ffffff;
-  color: #ffffff;
-}
-
-button.dark-mode {
-  background-color: #ff006a;
-  color: #000000;
-  border: 1px solid #ffffff;
-}

@@ -6,8 +6,6 @@ import axios from 'axios'
 export const ShopContext = createContext();
 
 const ShopContextProvider = (props) => {
-
-    const [darkMode, setDarkMode] = useState(false);
     const currency = 'Ft.';
     const delivery_fee = 10;
     const backendUrl = import.meta.env.VITE_BACKEND_URL
@@ -17,16 +15,6 @@ const ShopContextProvider = (props) => {
     const [products, setProducts] = useState([])
     const [token, setToken] = useState('')
     const navigate = useNavigate();
-
-    const toggleDarkMode = () => {
-        setDarkMode(!darkMode);
-        if (!darkMode) {
-            document.body.classList.add('dark-mode');
-        } else {
-            document.body.classList.remove('dark-mode');
-        }
-    };
-
 
     const addToCart = async (itemId, color) => {
 
@@ -165,8 +153,7 @@ const ShopContextProvider = (props) => {
         cartItems, addToCart, setCartItems,
         getCartCount, updateQuantity,
         getCartAmount, navigate,
-        backendUrl, setToken, token,
-        darkMode,toggleDarkMode,
+        backendUrl, setToken, token
     }
 
     return (

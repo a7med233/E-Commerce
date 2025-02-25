@@ -5,7 +5,7 @@ import { ShopContext } from '../context/ShopContext';
 
 const Navbar = () => {
     const [visible, setVisible] = useState(false);
-    const { setShowSearch, getCartCount, navigate, token, setToken, setCartItems, darkMode, toggleDarkMode } = useContext(ShopContext);
+    const { setShowSearch, getCartCount, navigate, token, setToken, setCartItems } = useContext(ShopContext);
 
     const logout = () => {
         navigate('/login');
@@ -15,7 +15,7 @@ const Navbar = () => {
     };
 
     return (
-        <div className={`flex items-center justify-between py-5 font-medium ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-700'}`}>
+        <div className="flex items-center justify-between py-5 font-medium bg-white text-gray-700">
             <Link to='/'><img src={assets.logo} className='w-36' alt="Logo" /></Link>
 
             <ul className='hidden sm:flex gap-5 text-sm'>
@@ -59,14 +59,28 @@ const Navbar = () => {
                         {getCartCount()}
                     </p>
                 </Link>
-
-                <button 
-                    onClick={toggleDarkMode} 
-                    className={`px-4 py-2 rounded ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-200 text-black'}`}>
-                    {darkMode ? 'Light Mode' : 'Dark Mode'}
-                </button>
-
                 <img onClick={() => setVisible(true)} src={assets.menu_icon} className='w-5 cursor-pointer sm:hidden' alt="Menu Icon" />
+            </div>
+
+            {/* Sidebar menu for small screens */}
+            <div className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white transition-all ${visible ? 'w-full' : 'w-0'}`}>
+                <div className='flex flex-col text-gray-600'>
+                    <div onClick={()=>setVisible(false)} className='flex items-center gap-4 p-3 cursor-pointer'>
+                        <img className='h-4 rotate-180' src={assets.dropdown_icon} alt="" />
+                        <p>Back</p>
+                    </div>
+                    <NavLink onClick={()=>setVisible(false)} to='/' className='flex items-center gap-4 p-3 cursor-pointer'>
+                        <p>Home</p>
+                    </NavLink>
+                    <NavLink onClick={()=>setVisible(false)} to='/collection' className='flex items-center gap-4 p-3 cursor-pointer'>
+                        <p>Products</p>
+                    </NavLink>
+                    <NavLink onClick={()=>setVisible(false)} to='/about' className='flex items-center gap-4 p-3 cursor-pointer'>                        <p>About</p>
+                    </NavLink>
+                    <NavLink onClick={()=>setVisible(false)} to='/contact' className='flex items-center gap-4 p-3 cursor-pointer'>
+                        <p>Contact</p>
+                    </NavLink>
+                </div>
             </div>
         </div>
     );

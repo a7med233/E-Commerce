@@ -140,5 +140,46 @@ export const addSuggestion = async (req, res) => {
         res.status(500).json({ success: false, message: "Internal server error" });
     }
 };
-
-export { listProduct, addProduct, removeProduct, singleProduct, addReview }
+const updateProduct = async (req, res) => {
+    try {
+      const { id, name, description, price, category, subCategory, colors, bestseller } = req.body;
+  
+      const product = await productModel.findById(id);
+  
+      if (!product) {
+        return res.status(404).json({ success: false, message: "Product not found" });
+      }
+  
+      // Update fields
+      if (name) product.name = name;
+      if (description) product.description = description;
+      if (price) product.price = price;
+      if (category) product.category = category;
+      if (subCategory) product.subCategory = subCategory;
+      if (colors) product.colors = JSON.parse(colors);
+      if (bestseller !== undefined) product.bestseller = bestseller;
+  
+      // Handle image updates
+      const images = req.files;
+      if (images && images.length > 0) {
+        // If new images are uploaded, replace the existing ones
+        product.image = [];
+        for (let i = 0; i < images.length; i++) {
+          const uploadedImage = await cloudinary.uploader.upload(images[i].path, {
+            resource_type: "image",
+          });
+          product.image.push(uploadedImage.secure_url);
+        }
+      }
+  
+      // Save the updated product
+      await product.save();
+      res.json({ success: true, message: "Product updated successfully", product });
+  
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: error.message });
+    }
+  };
+      
+export { listProduct, addProduct, removeProduct, singleProduct, addReview, updateProduct}
