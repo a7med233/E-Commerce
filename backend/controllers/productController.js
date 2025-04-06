@@ -142,44 +142,79 @@ export const addSuggestion = async (req, res) => {
 };
 const updateProduct = async (req, res) => {
     try {
-      const { id, name, description, price, category, subCategory, colors, bestseller } = req.body;
-  
-      const product = await productModel.findById(id);
-  
-      if (!product) {
-        return res.status(404).json({ success: false, message: "Product not found" });
-      }
-  
-      // Update fields
-      if (name) product.name = name;
-      if (description) product.description = description;
-      if (price) product.price = price;
-      if (category) product.category = category;
-      if (subCategory) product.subCategory = subCategory;
-      if (colors) product.colors = JSON.parse(colors);
-      if (bestseller !== undefined) product.bestseller = bestseller;
-  
-      // Handle image updates
-      const images = req.files;
-      if (images && images.length > 0) {
-        // If new images are uploaded, replace the existing ones
-        product.image = [];
-        for (let i = 0; i < images.length; i++) {
-          const uploadedImage = await cloudinary.uploader.upload(images[i].path, {
-            resource_type: "image",
-          });
-          product.image.push(uploadedImage.secure_url);
+        const { id, name, description, price, category, subCategory, colors, bestseller } = req.body;
+
+        const product = await productModel.findById(id);
+        if (!product) {
+            return res.status(404).json({ success: false, message: "Product not found" });
         }
-      }
-  
-      // Save the updated product
-      await product.save();
-      res.json({ success: true, message: "Product updated successfully", product });
-  
+
+        // ✅ Only add to priceHistory if the price has changed
+        if (price && product.price !== Number(price)) {
+            product.priceHistory.push({ price: product.price, date: new Date() });
+        }
+
+        // ✅ Update product fields
+        if (name) product.name = name;
+        if (description) product.description = description;
+        if (price) product.price = Number(price);
+        if (category) product.category = category;
+        if (subCategory) product.subCategory = subCategory;
+        if (colors) product.colors = JSON.parse(colors);
+        if (bestseller !== undefined) product.bestseller = bestseller;
+
+        // ✅ Handle images
+        const images = req.files;
+        if (images && images.length > 0) {
+            product.image = [];
+            for (let i = 0; i < images.length; i++) {
+                const uploadedImage = await cloudinary.uploader.upload(images[i].path, {
+                    resource_type: "image",
+                });
+                product.image.push(uploadedImage.secure_url);
+            }
+        }
+
+        await product.save();
+        res.json({ success: true, message: "Product updated successfully", product });
+
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ success: false, message: error.message });
+        console.error(error);
+        res.status(500).json({ success: false, message: error.message });
     }
-  };
-      
-export { listProduct, addProduct, removeProduct, singleProduct, addReview, updateProduct}
+};
+
+export const scrapeProductPrice = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const product = await productModel.findById(id);
+
+        if (!product || !product.sourceUrl) {
+            return res.status(404).json({ success: false, message: "Product not found or missing source URL" });
+        }
+
+        const scrapedData = await scrapePrice(product.sourceUrl);
+        if (!scrapedData.success) {
+            return res.status(500).json({ success: false, message: scrapedData.message });
+        }
+
+        const newPrice = Number(scrapedData.price.replace(/[^0-9.]/g, "")); // Remove currency symbols
+        const lastPriceEntry = product.priceHistory.length > 0 ? product.priceHistory[product.priceHistory.length - 1] : null;
+
+        // ✅ Only add to priceHistory if the price has actually changed
+        if (!lastPriceEntry || lastPriceEntry.price !== newPrice) {
+            product.priceHistory.push({ price: newPrice, date: new Date() });
+            product.price = newPrice; // Update latest price in the product schema
+            await product.save();
+            return res.json({ success: true, price: newPrice, message: "Price updated successfully!" });
+        } else {
+            return res.json({ success: true, price: newPrice, message: "Price is the same. No update needed." });
+        }
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Internal Server Error" });
+    }
+};
+
+export { listProduct, addProduct, removeProduct, singleProduct, addReview, updateProduct }

@@ -22,6 +22,23 @@ const Product = () => {
   // New States for Suggest Price Feature
   const [suggestion, setSuggestion] = useState({ price: "", link: "" });
   const [suggestions, setSuggestions] = useState([]); // To store submitted suggestions
+  const [priceHistory, setPriceHistory] = useState([]); // Price history state
+
+  const [latestPrice, setLatestPrice] = useState(null);
+
+  useEffect(() => {
+    const fetchLatestPrice = async () => {
+      try {
+        const response = await axios.get(`http://localhost:4000/api/product/scrape-price/${productId}`);
+        setLatestPrice(response.data.price);
+      } catch (error) {
+        console.error("Error fetching latest price:", error);
+      }
+    };
+
+    fetchLatestPrice();
+  }, [productId]);
+
 
   // Fetch product data
   useEffect(() => {
@@ -112,6 +129,21 @@ const Product = () => {
   };
 
 
+  useEffect(() => {
+    const fetchPriceHistory = async () => {
+      try {
+        const response = await axios.get(`http://localhost:4000/api/product/price-history/${productId}`);
+        setPriceHistory(response.data.priceHistory);
+      } catch (error) {
+        console.error("Error fetching price history:", error);
+      }
+    };
+
+    fetchPriceHistory();
+  }, [productId]);
+
+
+
   return productData ? (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
       <div className="flex gap-12 sm:gap-12 flex-col sm:flex-row">
@@ -170,6 +202,27 @@ const Product = () => {
             ADD TO CART
           </button>
         </div>
+      </div>
+
+      {/* Price History Table */}
+      <div className="mt-4">
+        <h3 className="text-lg font-semibold">Price History</h3>
+        <table className="w-full border mt-2">
+          <thead>
+            <tr className="border-b">
+              <th className="p-2">Date</th>
+              <th className="p-2">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {priceHistory.map((entry, index) => (
+              <tr key={index} className="border-b">
+                <td className="p-2">{new Date(entry.date).toLocaleDateString()}</td>
+                <td className="p-2">${entry.price}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       {/* Suggest New Price Section */}
