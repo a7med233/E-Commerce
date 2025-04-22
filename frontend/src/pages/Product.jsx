@@ -52,7 +52,7 @@ const Product = () => {
     fetchProductData();
   }, [productId, products]);
 
-  // Fetch exchange rates
+  {/*// Fetch exchange rates
   useEffect(() => {
     const fetchExchangeRates = async () => {
       try {
@@ -87,6 +87,7 @@ const Product = () => {
       setConvertedPrice(priceInSelectedCurrency);
     }
   }, [currency, exchangeRates, productData]);
+  */}
 
   const submitReview = async (e) => {
     e.preventDefault();
