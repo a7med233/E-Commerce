@@ -12,8 +12,7 @@ const scrapePrice = async (url) => {
     try {
         await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30000 });
 
-        // 🛑 Change this selector based on the website structure
-        const priceSelector = "span.price"; // Example: Change to the actual price class of the website
+        const priceSelector = "span.price"; 
         const price = await page.evaluate((selector) => {
             const priceElement = document.querySelector(selector);
             return priceElement ? priceElement.innerText.trim() : null;

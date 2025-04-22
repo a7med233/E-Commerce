@@ -28,17 +28,7 @@ productRouter.post('/remove', adminAuth, removeProduct);
 // Get single product
 productRouter.post('/single', singleProduct);
 
-// List all products
-/**
- * @swagger
- * /api/products:
- *   get:
- *     summary: Get all products
- *     tags: [Products]
- *     responses:
- *       200:
- *         description: A list of products
- */
+
 productRouter.get('/list', listProduct);
 
 // Add a price suggestion

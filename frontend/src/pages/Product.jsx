@@ -218,7 +218,7 @@ const Product = () => {
             {priceHistory.map((entry, index) => (
               <tr key={index} className="border-b">
                 <td className="p-2">{new Date(entry.date).toLocaleDateString()}</td>
-                <td className="p-2">${entry.price}</td>
+                <td className="p-2">{entry.price} HUF</td>
               </tr>
             ))}
           </tbody>
@@ -275,7 +275,7 @@ const Product = () => {
 
 
 
-      {/* Currency Selector */}
+     {/* {Currency Selector} 
       <div className="mt-4">
         <label htmlFor="currency">Choose Currency:</label>
         <select
@@ -290,7 +290,7 @@ const Product = () => {
             </option>
           ))}
         </select>
-      </div>
+      </div>*/}
 
 
       {/* Description & Review Section */}

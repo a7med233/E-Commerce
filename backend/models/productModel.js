@@ -23,7 +23,7 @@ const productSchema = new mongoose.Schema({
     suggestions: [suggestionSchema],
     priceHistory: [priceHistorySchema], 
     date: {type: Number, required:true },
-    sourceUrl: { type: String, required: true },
+    sourceUrl: { type: String, required: false },
     reviews: [
         {
           user: { type: String, required: true },

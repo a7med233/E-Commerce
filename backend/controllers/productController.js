@@ -186,35 +186,50 @@ const updateProduct = async (req, res) => {
 
 export const scrapeProductPrice = async (req, res) => {
     try {
-        const { id } = req.params;
-        const product = await productModel.findById(id);
-
-        if (!product || !product.sourceUrl) {
-            return res.status(404).json({ success: false, message: "Product not found or missing source URL" });
-        }
-
-        const scrapedData = await scrapePrice(product.sourceUrl);
-        if (!scrapedData.success) {
-            return res.status(500).json({ success: false, message: scrapedData.message });
-        }
-
-        const newPrice = Number(scrapedData.price.replace(/[^0-9.]/g, "")); // Remove currency symbols
-        const lastPriceEntry = product.priceHistory.length > 0 ? product.priceHistory[product.priceHistory.length - 1] : null;
-
-        // ✅ Only add to priceHistory if the price has actually changed
-        if (!lastPriceEntry || lastPriceEntry.price !== newPrice) {
-            product.priceHistory.push({ price: newPrice, date: new Date() });
-            product.price = newPrice; // Update latest price in the product schema
-            await product.save();
-            return res.json({ success: true, price: newPrice, message: "Price updated successfully!" });
-        } else {
-            return res.json({ success: true, price: newPrice, message: "Price is the same. No update needed." });
-        }
-
+      const { id } = req.params;
+      const product = await productModel.findById(id);
+  
+      if (!product || !product.sourceUrl) {
+        return res.status(404).json({ success: false, message: "Product not found or missing source URL" });
+      }
+  
+      const scrapedData = await scrapePrice(product.sourceUrl);
+      if (!scrapedData.success) {
+        return res.status(500).json({ success: false, message: scrapedData.message });
+      }
+  
+      const newPriceNum = Math.round(Number(scrapedData.price.replace(/[^0-9]/g, "")));
+  
+      const lastEntry = product.priceHistory.length > 0
+        ? product.priceHistory[product.priceHistory.length - 1]
+        : null;
+  
+      const lastPrice = lastEntry?.price || 0;
+      const lastDate = lastEntry?.date ? new Date(lastEntry.date) : null;
+      const now = new Date();
+  
+      const priceUnchanged = lastPrice === newPriceNum;
+      const within10Minutes = lastDate && (now - lastDate < 10 * 60 * 1000);
+  
+      if (priceUnchanged && within10Minutes) {
+        return res.json({
+          success: true,
+          price: newPriceNum,
+          message: "Price is the same and recent. No update needed."
+        });
+      }
+  
+      product.priceHistory.push({ price: newPriceNum, date: now });
+      product.price = newPriceNum;
+      await product.save();
+  
+      return res.json({ success: true, price: newPriceNum, message: "Price updated successfully!" });
+  
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: "Internal Server Error" });
+      console.error(error);
+      res.status(500).json({ success: false, message: "Internal Server Error" });
     }
-};
+  };
+  
 
 export { listProduct, addProduct, removeProduct, singleProduct, addReview, updateProduct }

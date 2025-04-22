@@ -1,4 +1,5 @@
 import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
 
 const options = {
   definition: {
@@ -13,8 +14,46 @@ const options = {
         url: "http://localhost:4000",
       },
     ],
+    components: {
+      schemas: {
+        Product: {
+          type: "object",
+          properties: {
+            _id: {
+              type: "string",
+            },
+            name: {
+              type: "string",
+            },
+            description: {
+              type: "string",
+            },
+            price: {
+              type: "number",
+            },
+            category: {
+              type: "string",
+            },
+            image: {
+              type: "string",
+            },
+            stock: {
+              type: "number",
+            },
+            createdAt: {
+              type: "string",
+              format: "date-time",
+            },
+            updatedAt: {
+              type: "string",
+              format: "date-time",
+            },
+          },
+        },
+      },
+    },
   },
-  apis: ["./routes/*.js", "./controllers/*.js"], // adjust based on where your routes or docs are
+  apis: ["./routes/*.js", "./controllers/*.js"],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
